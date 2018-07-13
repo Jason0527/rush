@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jason.boot.specific.rush.dao.UserAssetMapper" >
+  <resultMap id="BaseResultMap" type="com.jason.boot.specific.rush.entity.UserAsset" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="LOGIN_NO" property="loginNo" jdbcType="VARCHAR" />
+    <result column="HERO_NAME" property="heroName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, LOGIN_NO, HERO_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_ASSET
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from USER_ASSET
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jason.boot.specific.rush.entity.UserAsset" >
+    insert into USER_ASSET (ID, LOGIN_NO, HERO_NAME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{loginNo,jdbcType=VARCHAR}, #{heroName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jason.boot.specific.rush.entity.UserAsset" >
+    insert into USER_ASSET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="loginNo != null" >
+        LOGIN_NO,
+      </if>
+      <if test="heroName != null" >
+        HERO_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="loginNo != null" >
+        #{loginNo,jdbcType=VARCHAR},
+      </if>
+      <if test="heroName != null" >
+        #{heroName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jason.boot.specific.rush.entity.UserAsset" >
+    update USER_ASSET
+    <set >
+      <if test="loginNo != null" >
+        LOGIN_NO = #{loginNo,jdbcType=VARCHAR},
+      </if>
+      <if test="heroName != null" >
+        HERO_NAME = #{heroName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jason.boot.specific.rush.entity.UserAsset" >
+    update USER_ASSET
+    set LOGIN_NO = #{loginNo,jdbcType=VARCHAR},
+      HERO_NAME = #{heroName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertAsset"  parameterType="java.lang.String">
+  	insert into USER_ASSET(id,login_no,hero_name) values(#{id},#{loginNo},#{heroName}) 
+  </insert>
+</mapper>
