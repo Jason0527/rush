@@ -1,0 +1,14 @@
+package com.jason.boot.common.utils;
+
+import java.util.UUID;
+
+/**
+ * 生成64位uuid作为主键
+ * @author jason
+ *
+ */
+public class IdGen {
+	public static String createUUID(){
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+}

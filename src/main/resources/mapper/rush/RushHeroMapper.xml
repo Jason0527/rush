@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jason.boot.specific.rush.dao.RushHeroMapper" >
+  <resultMap id="BaseResultMap" type="com.jason.boot.specific.rush.entity.RushHero" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HERO_NAME" property="heroName" jdbcType="VARCHAR" />
+    <result column="RUSH_PRICE" property="rushPrice" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="SURPLUS" property="surplus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HERO_NAME, RUSH_PRICE, START_TIME, END_TIME,SURPLUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from RUSH_HERO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from RUSH_HERO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jason.boot.specific.rush.entity.RushHero" >
+    insert into RUSH_HERO (ID, HERO_NAME, RUSH_PRICE, 
+      START_TIME, END_TIME,SURPLUS)
+    values (#{id,jdbcType=VARCHAR}, #{heroName,jdbcType=VARCHAR}, #{rushPrice,jdbcType=DECIMAL}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{surplus,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jason.boot.specific.rush.entity.RushHero" >
+    insert into RUSH_HERO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="heroName != null" >
+        HERO_NAME,
+      </if>
+      <if test="rushPrice != null" >
+        RUSH_PRICE,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="surplus != null" >
+        SURPLUS
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="heroName != null" >
+        #{heroName,jdbcType=VARCHAR},
+      </if>
+      <if test="rushPrice != null" >
+        #{rushPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="surplus != null" >
+        #{surplus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jason.boot.specific.rush.entity.RushHero" >
+    update RUSH_HERO
+    <set >
+      <if test="heroName != null" >
+        HERO_NAME = #{heroName,jdbcType=VARCHAR},
+      </if>
+      <if test="rushPrice != null" >
+        RUSH_PRICE = #{rushPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="surplus != null" >
+        END_TIME = #{surplus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jason.boot.specific.rush.entity.RushHero" >
+    update RUSH_HERO
+    set HERO_NAME = #{heroName,jdbcType=VARCHAR},
+      RUSH_PRICE = #{rushPrice,jdbcType=DECIMAL},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      SURPLUS = #{surplus,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByHeroName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  		select 
+    <include refid="Base_Column_List" />
+    from RUSH_HERO
+    where hero_name = #{heroName}
+  </select>
+  <update id="reduceNum">
+  	update rush_hero set surplus=surplus-1 where hero_name=#{heroName} 
+  	and (#{now,jdbcType=TIMESTAMP} between start_time and end_time)
+  </update>
+</mapper>
