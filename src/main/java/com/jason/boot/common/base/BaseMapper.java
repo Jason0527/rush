@@ -3,7 +3,7 @@ package com.jason.boot.common.base;
 /**
  * 
  * @author jason
- *	dao 父接口
+ *	dao 父接口  mybatis-generator自动生成的一些基本方法
  */
 public interface BaseMapper {
 	/**
