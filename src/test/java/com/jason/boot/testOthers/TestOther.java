@@ -24,4 +24,12 @@ public class TestOther {
 		list.add("3");
 		System.out.println(list);
 	}
+	@Test
+	public void test3(){
+		List<String> list = new ArrayList<String>();
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		System.out.println(list);
+	}
 }
